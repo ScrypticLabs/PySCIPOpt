@@ -48,7 +48,17 @@ Building everything from source
 ===============================
 
 PySCIPOpt requires [Cython](http://cython.org/), at least version 0.21
-(`pip install cython`). Furthermore, you need to have the Python
+(`pip install cython`). However, if using the latest version of Cython
+at the moment (version 0.29.20), upon installing PySCIPOpt you will 
+likely get the error here: https://stackoverflow.com/questions/62572125/problem-when-importing-pyscipopt-attributeerror-type-object-pyscipopt-scip-ex
+
+The source code for PySCIPOpt in this repo resolves the conflict above by
+removing the __div__ and __rdiv__ methods found in src/pyscipopt/expr.pxi.
+Make sure to install Cython v0.29.20 as follows:
+
+    pip install cython==0.29.20
+
+Furthermore, you need to have the Python
 development files installed on your system (error message "Python.h not
 found"):
 
@@ -58,6 +68,10 @@ found"):
 After setting up `SCIPOPTDIR` as specified above, please run
 
     python setup.py install
+
+or equivalently run 
+
+    pip install .
 
 You may use the additional options `--user` or
 `--prefix=<custom-python-path>`, to build the interface locally.
